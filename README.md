@@ -38,9 +38,6 @@ From the dashboard, a user can:
 
 **A "due soon" window of 7 days.** This number is hardcoded rather than configurable, on purpose — for a v1 of a personal tool, one sensible default beats an extra settings page that most users would never touch.
 
-## AI assistance disclosure
-
-I used Claude (Anthropic) while building this project, to help draft code, troubleshoot issues, and talk through design decisions, as explicitly permitted by CS50's final project policy. I reviewed, tested, and understood every part of the resulting code myself — the feature scope and the choices described above are mine.
 
 ## What I'd build next
 
