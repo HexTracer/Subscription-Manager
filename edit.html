@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Edit subscription{% endblock %}
+{% block main %}
+    <div class="card form-card">
+        <h1>Edit subscription</h1>
+        <form action="/edit/{{ sub.id }}" method="post">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" value="{{ sub.name }}" autofocus required>
+
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                {% for category in categories %}
+                <option value="{{ category }}" {{ "selected" if category == sub.category else "" }}>{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cost">Cost ($)</label>
+            <input id="cost" name="cost" type="number" min="0.01" step="0.01" value="{{ sub.cost }}" required>
+
+            <label for="billing_cycle">Billing cycle</label>
+            <select id="billing_cycle" name="billing_cycle" required>
+                <option value="monthly" {{ "selected" if sub.billing_cycle == "monthly" else "" }}>Monthly</option>
+                <option value="yearly" {{ "selected" if sub.billing_cycle == "yearly" else "" }}>Yearly</option>
+            </select>
+
+            <label for="next_renewal">Next renewal date</label>
+            <input id="next_renewal" name="next_renewal" type="date" value="{{ sub.next_renewal }}" required>
+
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" name="notes" rows="3">{{ sub.notes or "" }}</textarea>
+
+            <button class="button" type="submit">Save changes</button>
+        </form>
+    </div>
+{% endblock %}

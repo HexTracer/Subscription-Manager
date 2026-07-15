@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block main %}
+    <div class="totals">
+        <div class="total-card">
+            <span class="total-label">Monthly total</span>
+            <span class="total-value">${{ "%.2f"|format(monthly_total) }}</span>
+        </div>
+        <div class="total-card">
+            <span class="total-label">Yearly total</span>
+            <span class="total-value">${{ "%.2f"|format(yearly_total) }}</span>
+        </div>
+        <div class="total-card">
+            <span class="total-label">Active subscriptions</span>
+            <span class="total-value">{{ subscriptions|length }}</span>
+        </div>
+    </div>
+
+    {% if subscriptions %}
+    <table class="sub-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Cost</th>
+                <th>Cycle</th>
+                <th>Next renewal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub in subscriptions %}
+            <tr class="{{ 'due-soon' if sub.due_soon else '' }}">
+                <td>{{ sub.name }}</td>
+                <td>{{ sub.category }}</td>
+                <td>${{ "%.2f"|format(sub.cost) }}</td>
+                <td>{{ sub.billing_cycle }}</td>
+                <td>
+                    <span class="status-dot {{ 'status-dot--due' if sub.due_soon else '' }}"></span>
+                    {{ sub.next_renewal }}
+                    {% if sub.due_soon %}<span class="badge">due soon</span>{% endif %}
+                </td>
+                <td class="actions">
+                    <a href="/edit/{{ sub.id }}">Edit</a>
+                    <form action="/renew/{{ sub.id }}" method="post" class="inline-form">
+                        <button type="submit">Renew</button>
+                    </form>
+                    <form action="/delete/{{ sub.id }}" method="post" class="inline-form">
+                        <button type="submit" class="danger">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="empty-state">
+            <p>No subscriptions yet.</p>
+            <a class="button" href="/add">Add your first one</a>
+        </div>
+    {% endif %}
+{% endblock %}
