@@ -1,1 +1,1 @@
-# Subscription-Manager
+Subscription Manager is a web app that helps a person keep track of every recurring payment they've signed up for — Netflix, Spotify, iCloud storage, a gym membership, a cloud server, whatever it is — in one place. It was built as my CS50x final project, using the same core stack the course teaches: Flask, SQLite, Jinja templates, and plain HTML/CSS, no JavaScript frameworks.
